@@ -11,7 +11,7 @@ namespace Tetris
     {
 
 
-        override public void MyViewChange()
+        override public void SkinChange()
         {
             for (int i = 0; i < 10; i++)
                 for (int j = 0; j < 20; j++)

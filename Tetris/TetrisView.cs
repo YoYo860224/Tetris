@@ -22,16 +22,15 @@ namespace Tetris
             // init component
             InitializeComponent();
             MakeMainBlock();
-            MyViewChange();
+            SkinChange();
 
             // create "M" V "C"
             tetrisModel = new TetrisModel(this);
             tetrisControl = new TetrisControl(tetrisModel);
-
         }
 
         // for child class to change the form style
-        virtual public void MyViewChange()
+        virtual public void SkinChange()
         {
             return;
         }
@@ -79,6 +78,7 @@ namespace Tetris
 
         }
 
-
+        // some event by UI
+        // TODO: here
     }
 }

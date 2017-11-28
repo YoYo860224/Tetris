@@ -82,13 +82,13 @@ namespace Tetris
         {
             score = s;
         }
-
-        /////////////////  about Cube  ///////////////////
+    
         public int GetScore()
         {
             return score;
         }
 
+        /////////////////  about Cube  ///////////////////
         public CUBE[,] GetBlock()
         {
             return block;
@@ -119,7 +119,7 @@ namespace Tetris
 
         }
 
-        public void RemoveRow(int i)
+        public void DeleteBlockRow(int i)
         {
 
         }
