@@ -70,6 +70,9 @@
     <EmbeddedResource Include="TetrisView.resx">
       <DependentUpon>TetrisView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TetrisView_B10415049.resx">
+      <DependentUpon>TetrisView_B10415049.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

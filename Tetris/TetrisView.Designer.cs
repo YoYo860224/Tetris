@@ -144,15 +144,15 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox nextPanel;
-        private System.Windows.Forms.Label levelLabel;
-        private System.Windows.Forms.Label scoreLabel;
-        private System.Windows.Forms.Label timeLabel;
-        private System.Windows.Forms.Button stopButton;
-        private System.Windows.Forms.Button pauseButton;
-        private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.GroupBox blockPanel;
-        private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Timer secTimer;
+        protected System.Windows.Forms.GroupBox nextPanel;
+        protected System.Windows.Forms.Label levelLabel;
+        protected System.Windows.Forms.Label scoreLabel;
+        protected System.Windows.Forms.Label timeLabel;
+        protected System.Windows.Forms.Button stopButton;
+        protected System.Windows.Forms.Button pauseButton;
+        protected System.Windows.Forms.Button startButton;
+        protected System.Windows.Forms.GroupBox blockPanel;
+        protected System.Windows.Forms.Timer timer;
+        protected System.Windows.Forms.Timer secTimer;
     }
 }
