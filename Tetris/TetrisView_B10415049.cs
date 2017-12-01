@@ -13,11 +13,16 @@ namespace Tetris
 
         override public void SkinChange()
         {
-            for (int i = 0; i < 10; i++)
-                for (int j = 0; j < 20; j++)
-                {
-                    allBolck[i, j].BackColor = Color.Red;
-                }
+            ccMap = new Dictionary<TetrisModel.CUBE, Color>();
+            ccMap.Add(TetrisModel.CUBE.NONE, Color.Black);
+            ccMap.Add(TetrisModel.CUBE.T, Color.Blue);
+            ccMap.Add(TetrisModel.CUBE.I, Color.Red);
+            ccMap.Add(TetrisModel.CUBE.SQUARE, Color.Green);
+            ccMap.Add(TetrisModel.CUBE.L, Color.Purple);
+            ccMap.Add(TetrisModel.CUBE.L_RE, Color.Cyan);
+            ccMap.Add(TetrisModel.CUBE.S, Color.Gold);
+            ccMap.Add(TetrisModel.CUBE.S_RE, Color.Firebrick);
+            return;
         }
     }
 }

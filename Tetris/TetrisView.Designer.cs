@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.nextPanel = new System.Windows.Forms.GroupBox();
             this.levelLabel = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
@@ -36,6 +37,8 @@
             this.pauseButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
             this.blockPanel = new System.Windows.Forms.GroupBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.secTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // nextPanel
@@ -81,6 +84,7 @@
             this.stopButton.TabIndex = 11;
             this.stopButton.Text = "Stop";
             this.stopButton.UseVisualStyleBackColor = true;
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             // 
             // pauseButton
             // 
@@ -90,6 +94,7 @@
             this.pauseButton.TabIndex = 10;
             this.pauseButton.Text = "Pause";
             this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // startButton
             // 
@@ -99,6 +104,7 @@
             this.startButton.TabIndex = 9;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // blockPanel
             // 
@@ -107,6 +113,14 @@
             this.blockPanel.Size = new System.Drawing.Size(241, 455);
             this.blockPanel.TabIndex = 8;
             this.blockPanel.TabStop = false;
+            // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // secTimer
+            // 
+            this.secTimer.Tick += new System.EventHandler(this.secTimer_Tick);
             // 
             // TetrisView
             // 
@@ -123,6 +137,7 @@
             this.Controls.Add(this.pauseButton);
             this.Name = "TetrisView";
             this.Text = "TetrisView";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TetrisView_KeyDown);
             this.ResumeLayout(false);
 
         }
@@ -137,5 +152,7 @@
         private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.GroupBox blockPanel;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer secTimer;
     }
 }

@@ -13,6 +13,8 @@ namespace Tetris
     public partial class TetrisView : Form
     {  
         protected System.Windows.Forms.PictureBox[,] allBolck;
+        protected PictureBox[,] nextBlock;
+        protected Dictionary<TetrisModel.CUBE, Color> ccMap;
 
         private TetrisModel tetrisModel;
         private TetrisControl tetrisControl;
@@ -22,16 +24,28 @@ namespace Tetris
             // init component
             InitializeComponent();
             MakeMainBlock();
+            MakeNextBlock();
             SkinChange();
 
             // create "M" V "C"
             tetrisModel = new TetrisModel(this);
             tetrisControl = new TetrisControl(tetrisModel);
+
+            ViewUpdate();
         }
 
         // for child class to change the form style
         virtual public void SkinChange()
         {
+            ccMap = new Dictionary<TetrisModel.CUBE, Color>();
+            ccMap.Add(TetrisModel.CUBE.NONE, Color.Black);
+            ccMap.Add(TetrisModel.CUBE.T, Color.Blue);
+            ccMap.Add(TetrisModel.CUBE.I, Color.Red);
+            ccMap.Add(TetrisModel.CUBE.SQUARE, Color.Green);
+            ccMap.Add(TetrisModel.CUBE.L, Color.Purple);
+            ccMap.Add(TetrisModel.CUBE.L_RE, Color.Cyan);
+            ccMap.Add(TetrisModel.CUBE.S, Color.Gold);
+            ccMap.Add(TetrisModel.CUBE.S_RE, Color.Firebrick);
             return;
         }
 
@@ -78,7 +92,66 @@ namespace Tetris
 
         }
 
+        public void BlockPanelUpdate()
+        {
+
+        }
+
+        public void NextPanelUpdate()
+        {
+
+        }
+
+        public void TextComponentUpdate()
+        {
+            timeLabel.Text = "Time : " + tetrisModel.GetTimer();
+            levelLabel.Text = "Level : " + tetrisModel.GetLevel();
+            scoreLabel.Text = "Score : " + tetrisModel.GetScore();
+        }
+
+        public void ButtonActive(bool start, bool pause, bool stop)
+        {
+            startButton.Enabled = start;
+            pauseButton.Enabled = pause;
+            stopButton.Enabled = stop;
+        }
+
+        public void TimerIntervalSet(int ms)
+        {
+            timer.Interval = ms;
+        }
+
         // some event by UI
         // TODO: here
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TetrisView_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void secTimer_Tick(object sender, EventArgs e)
+        {
+
+        }
     }
 }
