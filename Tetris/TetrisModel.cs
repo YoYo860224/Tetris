@@ -43,8 +43,8 @@ namespace Tetris
 
             public Block()
             {
-                cube = (CUBE ) (0);
-                cube_state = (CUBE_STATE) (0);
+                cube = CUBE.NONE;
+                cube_state = CUBE_STATE.NONE;
             }
             public Block(CUBE c, CUBE_STATE cs)
             {
@@ -57,7 +57,9 @@ namespace Tetris
         private STATE nowState;
         private Block[,] block;
         private Block[,] nextBlock;
+        // BLOCK SIZE
         private int blockx = 20, blocky = 10;
+        // NEXTBLOCK SIZE
         private int nextBlockx = 4, nextBlocky = 4;
         private int timer;
         private int score;
@@ -172,7 +174,7 @@ namespace Tetris
                 {
                     for (int j = 0; j < blocky; j++)
                     {
-                        if (block[i, j].cube != (CUBE)(1))
+                        if (block[i, j].cube_state != CUBE_STATE.OK)
                         {
                             break;
                         }
@@ -189,7 +191,7 @@ namespace Tetris
         {
             int sc = 0,point = 10;  
                 for (int j = 0; j < 10; j++) {
-                    block[x, j] = new Block((CUBE)(0), (CUBE_STATE)(4));
+                    block[x, j] = new Block(CUBE.NONE, CUBE_STATE.DELETE);
                 }
             sc = sc + point ;
             SetScore(sc);
