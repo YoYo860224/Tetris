@@ -8,7 +8,9 @@ namespace Tetris
 {
     public class TetrisControl
     {
-        public enum CMD{
+        public enum CMD
+        {
+            ROTATE,
             RIGHT,
             LEFT,
             MOVEDOWN,
@@ -43,6 +45,10 @@ namespace Tetris
         public void TimerTrigger()
         {
 
+        }
+
+        public void SecTimerTrigger()
+        {
         }
     }
 }

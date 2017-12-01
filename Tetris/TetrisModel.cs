@@ -14,29 +14,44 @@ namespace Tetris
             DOING,
             PAUSE
         };
+   
         public enum CUBE
         {
-            NONE = 0,   
-            T = 1,
+            NONE,   
+            T,
+            I,
+            SQUARE,
             L,
             L_RE,
             S,
             S_RE,
-            I,
-            SQUARE,
-            IS_MOVE,
-            T_MOVING,
-            L_MOVING,
-            L_RE_MOVING,
-            S_MOVING,
-            S_RE_MOVING,
-            I_MOVING,
-            SQUARE_MOVING,
         };
 
+        public enum CUBE_STATE
+        {
+            NONE,
+            OK,
+            MOVE,
+            JOINT,
+            DELETE
+        }
+
+        public class Block
+        {
+            public CUBE cube = new CUBE();
+            public CUBE_STATE cube_state = new CUBE_STATE();
+
+            public Block(CUBE c, CUBE_STATE cs)
+            {
+                cube = c;
+                cube_state = cs;
+            }
+        }
+
         private STATE nowState;
-        private CUBE[,] block;
-        private CUBE nextCube;
+        private Block[,] block;
+        private Block[,] nextBlock;
+
         private int timer;
         private int score;
         private int level;
@@ -44,9 +59,26 @@ namespace Tetris
         private TetrisView tetrisView;
 
         public TetrisModel(TetrisView view) {
-            nowState = STATE.STOP;
             tetrisView = view;
+            InitAll();
         }
+
+        public void InitAll()
+        {
+            nowState = STATE.STOP;
+
+            // new Block and init them to CUBE.NONE
+            // TODO : ...
+
+
+            NextCreate();
+
+            timer = 0;
+            score = 0;
+            level = 1;
+        }
+
+        ///////////////////  get set  /////////////////////
 
         public void SetState(STATE state)
         {
@@ -89,9 +121,15 @@ namespace Tetris
         }
 
         /////////////////  about Cube  ///////////////////
-        public CUBE[,] GetBlock()
+
+        public Block[,] GetBlock()
         {
             return block;
+        }
+
+        public Block[,] GetNextBlock()
+        {
+            return nextBlock;
         }
 
         public void GameStart()
@@ -128,9 +166,14 @@ namespace Tetris
         {
 
         }
-        //////////////////////////////////////////////////
+
+        private void NextCreate()
+        {
+
+        }
 
         ///////////////// people Control /////////////////
+
         public void CubeGoDown()
         {
 
