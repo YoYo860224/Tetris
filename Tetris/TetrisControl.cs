@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Tetris
 {
@@ -32,7 +33,7 @@ namespace Tetris
             tetrisModel = model;
         }
 
-        public void UserKeyDown(CMD c)
+        public void UserKeyDown(Keys c)
         {
 
         }

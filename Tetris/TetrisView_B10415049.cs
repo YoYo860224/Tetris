@@ -46,11 +46,10 @@ namespace Tetris
             // 
             // TetrisView_B10415049
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.ClientSize = new System.Drawing.Size(606, 483);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.ClientSize = new System.Drawing.Size(500, 420);
             this.Name = "TetrisView_B10415049";
             this.ResumeLayout(false);
-
         }
     }
 }
