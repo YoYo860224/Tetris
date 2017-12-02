@@ -180,34 +180,34 @@ namespace Tetris
             tetrisView.ViewUpdate();
         }
         // 判斷方塊有沒有HIT
-        public bool CubeHit(int[,] cubePos) {
-            for (int i = 0; i < cubePos.Length; i++) {
+        public bool CubeHit() {
+            for (int i = 0; i < nowCubePos.Length; i++) {
                 // check down
-                if (block[(cubePos[i, 0] - 1), cubePos[i, 1]].cube_state == CUBE_STATE.OK) {
+                if (block[(nowCubePos[i, 0] - 1), nowCubePos[i, 1]].cube_state == CUBE_STATE.OK) {
                     return true;
                 }
                 // check left
-                else if (block[cubePos[i, 0], (cubePos[i, 1] - 1)].cube_state == CUBE_STATE.OK)
+                else if (block[nowCubePos[i, 0], (nowCubePos[i, 1] - 1)].cube_state == CUBE_STATE.OK)
                 {
                     return true;
                 }
                 // check right
-                else if (block[cubePos[i, 0], (cubePos[i, 1] + 1)].cube_state == CUBE_STATE.OK)
+                else if (block[nowCubePos[i, 0], (nowCubePos[i, 1] + 1)].cube_state == CUBE_STATE.OK)
                 {
                     return true;
                 }
                 // check down edge
-                else if (cubePos[i, 0] - 1 < 0)
+                else if (nowCubePos[i, 0] - 1 < 0)
                 {
                     return true;
                 }
                 // check left edge
-                else if (cubePos[i, 1] - 1 < 0)
+                else if (nowCubePos[i, 1] - 1 < 0)
                 {
                     return true;
                 }
                 // check right edge
-                else if (cubePos[i, 1] + 1 > 9)
+                else if (nowCubePos[i, 1] + 1 > 9)
                 {
                     return true;
                 }
