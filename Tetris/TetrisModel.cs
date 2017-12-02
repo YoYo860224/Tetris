@@ -38,11 +38,12 @@ namespace Tetris
 
         public class Block
         {
+
             public CUBE cube = new CUBE();
             public CUBE_STATE cube_state = new CUBE_STATE();
-
             public Block()
             {
+               
                 cube = CUBE.NONE;
                 cube_state = CUBE_STATE.NONE;
             }
@@ -64,7 +65,7 @@ namespace Tetris
         private int timer;
         private int score;
         private int level;
-
+        private int[,] nowCubePos; 
         private TetrisView tetrisView;
 
         public TetrisModel(TetrisView view) {
@@ -77,8 +78,25 @@ namespace Tetris
             nowState = STATE.STOP;
             // new Block and init them to CUBE.NONE
             // TODO : ...
-            block = new Block[blockx,blocky];//遊戲BLOCK 10*20
+            block = new Block[blockx, blocky];//遊戲BLOCK 10*20
+            for (int i = 0; i < blockx; i++)
+            {
+                for (int j = 0; j < blocky; j++)
+                {
+                    block[i, j] = new Block();
+                }
+            }
             nextBlock = new Block[nextBlockx, nextBlocky];//下個方塊 4*4
+            for (int i = 0; i < nextBlockx; i++)
+            {
+                for (int j = 0; j < nextBlocky; j++)
+                {
+                    nextBlock[i, j] = new Block();
+                }
+            }
+
+            //set now cube position
+            nowCubePos = new int[5, 2];
 
             NextCreate();
 
@@ -143,22 +161,25 @@ namespace Tetris
 
         public void GameStart()
         {
+            SetTimer(0);
+            SetScore(0);
+            SetState(STATE.DOING);
 
         }
 
         public void GamePause()
         {
-
+            SetState(STATE.PAUSE);
         }
 
         public void GameOver()
         {
-
+            SetState(STATE.STOP);
         }
 
         public void CubeAutoDown()
         {
-
+            tetrisView.ViewUpdate();
         }
         // 判斷方塊有沒有HIT
         public bool CubeHit() {
@@ -168,20 +189,17 @@ namespace Tetris
         // 掃描需要消除的ROW
         public void BlockScan()
         {
-            if (CubeHit())
+            for (int i = 0; i < blockx; i++)
             {
-                for (int i = 0; i < blockx; i++)
+                for (int j = 0; j < blocky; j++)
                 {
-                    for (int j = 0; j < blocky; j++)
+                    if (block[i, j].cube_state != CUBE_STATE.OK)
                     {
-                        if (block[i, j].cube_state != CUBE_STATE.OK)
-                        {
-                            break;
-                        }
-                        if (j == (blocky - 1))
-                        {
-                            DeleteBlockRow(i);
-                        }
+                        break;
+                    }
+                    if (j == (blocky - 1))
+                    {
+                        DeleteBlockRow(i);
                     }
                 }
             }

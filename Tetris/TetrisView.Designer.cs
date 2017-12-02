@@ -44,39 +44,36 @@
             // levelLabel
             // 
             this.levelLabel.Font = new System.Drawing.Font("新細明體", 30F);
-            this.levelLabel.Location = new System.Drawing.Point(238, 187);
-            this.levelLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.levelLabel.Location = new System.Drawing.Point(317, 234);
             this.levelLabel.Name = "levelLabel";
-            this.levelLabel.Size = new System.Drawing.Size(225, 40);
+            this.levelLabel.Size = new System.Drawing.Size(300, 50);
             this.levelLabel.TabIndex = 14;
             this.levelLabel.Text = "Level:";
             // 
             // scoreLabel
             // 
             this.scoreLabel.Font = new System.Drawing.Font("新細明體", 30F);
-            this.scoreLabel.Location = new System.Drawing.Point(238, 227);
-            this.scoreLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.scoreLabel.Location = new System.Drawing.Point(317, 284);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(225, 40);
+            this.scoreLabel.Size = new System.Drawing.Size(300, 50);
             this.scoreLabel.TabIndex = 13;
             this.scoreLabel.Text = "Score:";
             // 
             // timeLabel
             // 
             this.timeLabel.Font = new System.Drawing.Font("新細明體", 30F);
-            this.timeLabel.Location = new System.Drawing.Point(238, 147);
-            this.timeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.timeLabel.Location = new System.Drawing.Point(317, 184);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(225, 40);
+            this.timeLabel.Size = new System.Drawing.Size(300, 50);
             this.timeLabel.TabIndex = 12;
             this.timeLabel.Text = "Time:";
             // 
             // stopButton
             // 
-            this.stopButton.Location = new System.Drawing.Point(398, 313);
-            this.stopButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stopButton.Location = new System.Drawing.Point(531, 391);
+            this.stopButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(75, 80);
+            this.stopButton.Size = new System.Drawing.Size(100, 100);
             this.stopButton.TabIndex = 11;
             this.stopButton.Text = "Stop";
             this.stopButton.UseVisualStyleBackColor = true;
@@ -84,10 +81,10 @@
             // 
             // pauseButton
             // 
-            this.pauseButton.Location = new System.Drawing.Point(319, 313);
-            this.pauseButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pauseButton.Location = new System.Drawing.Point(425, 391);
+            this.pauseButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(75, 80);
+            this.pauseButton.Size = new System.Drawing.Size(100, 100);
             this.pauseButton.TabIndex = 10;
             this.pauseButton.Text = "Pause";
             this.pauseButton.UseVisualStyleBackColor = true;
@@ -95,10 +92,10 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(239, 313);
-            this.startButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.startButton.Location = new System.Drawing.Point(319, 391);
+            this.startButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(75, 80);
+            this.startButton.Size = new System.Drawing.Size(100, 100);
             this.startButton.TabIndex = 9;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
@@ -106,31 +103,37 @@
             // 
             // timer
             // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // secTimer
             // 
+            this.secTimer.Enabled = true;
+            this.secTimer.Interval = 1000;
             this.secTimer.Tick += new System.EventHandler(this.secTimer_Tick);
             // 
             // blockPanel
             // 
-            this.blockPanel.Location = new System.Drawing.Point(12, 12);
+            this.blockPanel.Location = new System.Drawing.Point(16, 15);
+            this.blockPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.blockPanel.Name = "blockPanel";
-            this.blockPanel.Size = new System.Drawing.Size(200, 400);
+            this.blockPanel.Size = new System.Drawing.Size(267, 500);
             this.blockPanel.TabIndex = 16;
             // 
             // nextPanel
             // 
-            this.nextPanel.Location = new System.Drawing.Point(218, 12);
+            this.nextPanel.Location = new System.Drawing.Point(291, 15);
+            this.nextPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nextPanel.Name = "nextPanel";
-            this.nextPanel.Size = new System.Drawing.Size(80, 80);
+            this.nextPanel.Size = new System.Drawing.Size(107, 100);
             this.nextPanel.TabIndex = 17;
             // 
             // TetrisView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 420);
+            this.ClientSize = new System.Drawing.Size(667, 525);
             this.Controls.Add(this.nextPanel);
             this.Controls.Add(this.blockPanel);
             this.Controls.Add(this.levelLabel);
@@ -139,7 +142,7 @@
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.pauseButton);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "TetrisView";
             this.Text = "TetrisView";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TetrisView_KeyDown);
@@ -155,8 +158,8 @@
         protected System.Windows.Forms.Button pauseButton;
         protected System.Windows.Forms.Button startButton;
         protected System.Windows.Forms.Timer timer;
-        protected System.Windows.Forms.Timer secTimer;
         private System.Windows.Forms.Panel blockPanel;
         private System.Windows.Forms.Panel nextPanel;
+        protected System.Windows.Forms.Timer secTimer;
     }
 }
