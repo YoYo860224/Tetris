@@ -58,14 +58,12 @@ namespace Tetris
         private STATE nowState;
         private Block[,] block;
         private Block[,] nextBlock;
-        // BLOCK SIZE
-        private int blockx = 20, blocky = 10;
-        // NEXTBLOCK SIZE
-        private int nextBlockx = 4, nextBlocky = 4;
+        private int blockx = 20, blocky = 10;       // BLOCK SIZE
+        private int nextBlockx = 4, nextBlocky = 4; // NEXTBLOCK SIZE
         private int timer;
         private int score;
         private int level;
-        private int[,] nowCubePos; 
+        private int[,] nowCubePos;                  // Now cube position
         private TetrisView tetrisView;
 
         public TetrisModel(TetrisView view) {
@@ -78,7 +76,7 @@ namespace Tetris
             nowState = STATE.STOP;
             // new Block and init them to CUBE.NONE
             // TODO : ...
-            block = new Block[blockx, blocky];//遊戲BLOCK 10*20
+            block = new Block[blockx, blocky];      //遊戲BLOCK 10*20
             for (int i = 0; i < blockx; i++)
             {
                 for (int j = 0; j < blocky; j++)
@@ -182,8 +180,38 @@ namespace Tetris
             tetrisView.ViewUpdate();
         }
         // 判斷方塊有沒有HIT
-        public bool CubeHit() {
-
+        public bool CubeHit(int[,] cubePos) {
+            for (int i = 0; i < cubePos.Length; i++) {
+                // check down
+                if (block[(cubePos[i, 0] - 1), cubePos[i, 1]].cube_state == CUBE_STATE.OK) {
+                    return true;
+                }
+                // check left
+                else if (block[cubePos[i, 0], (cubePos[i, 1] - 1)].cube_state == CUBE_STATE.OK)
+                {
+                    return true;
+                }
+                // check right
+                else if (block[cubePos[i, 0], (cubePos[i, 1] + 1)].cube_state == CUBE_STATE.OK)
+                {
+                    return true;
+                }
+                // check down edge
+                else if (cubePos[i, 0] - 1 < 0)
+                {
+                    return true;
+                }
+                // check left edge
+                else if (cubePos[i, 1] - 1 < 0)
+                {
+                    return true;
+                }
+                // check right edge
+                else if (cubePos[i, 1] + 1 > 9)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         // 掃描需要消除的ROW
