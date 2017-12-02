@@ -14,10 +14,10 @@ namespace Tetris
             DOING,
             PAUSE
         };
-   
+
         public enum CUBE
         {
-            NONE,   
+            NONE,
             T,
             I,
             SQUARE,
@@ -43,7 +43,7 @@ namespace Tetris
             public CUBE_STATE cube_state = new CUBE_STATE();
             public Block()
             {
-               
+
                 cube = CUBE.NONE;
                 cube_state = CUBE_STATE.NONE;
             }
@@ -52,7 +52,7 @@ namespace Tetris
                 cube = c;
                 cube_state = cs;
             }
-            
+
         }
 
         private STATE nowState;
@@ -139,7 +139,7 @@ namespace Tetris
         {
             score = s;
         }
-    
+
         public int GetScore()
         {
             return score;
@@ -179,37 +179,67 @@ namespace Tetris
         {
             tetrisView.ViewUpdate();
         }
-        // 判斷方塊有沒有HIT
-        public bool CubeHit() {
-            for (int i = 0; i < nowCubePos.Length; i++) {
-                // check down
-                if (block[(nowCubePos[i, 0] - 1), nowCubePos[i, 1]].cube_state == CUBE_STATE.OK) {
-                    return true;
+
+        // 判斷方塊下面有沒有HIT
+        public bool CubeHitButton() {
+            for (int i = 0; i < nowCubePos.Length; i++)
+            {
+                // 判斷是不是T型
+                if (nowCubePos[i, 0] != -1) {
+                    // check down
+                    if (block[(nowCubePos[i, 0] - 1), nowCubePos[i, 1]].cube_state == CUBE_STATE.OK)
+                    {
+                        return true;
+                    }
+                    // check down edge
+                    else if (nowCubePos[i, 0] - 1 < 0)
+                    {
+                        return true;
+                    }
                 }
-                // check left
-                else if (block[nowCubePos[i, 0], (nowCubePos[i, 1] - 1)].cube_state == CUBE_STATE.OK)
+            }
+            return false;
+        }
+        // 判斷方塊左邊有沒有HIT
+        public bool CubeHitLeft()
+        {
+            for (int i = 0; i < nowCubePos.Length; i++)
+            {   
+                // 判斷是不是T型
+                if (nowCubePos[i, 0] != -1)
                 {
-                    return true;
+                    // check left
+                    if (block[nowCubePos[i, 0], (nowCubePos[i, 1] - 1)].cube_state == CUBE_STATE.OK)
+                    {
+                        return true;
+                    }
+                    // check left edge
+                    else if (nowCubePos[i, 1] - 1 < 0)
+                    {
+                        return true;
+                    }
                 }
-                // check right
-                else if (block[nowCubePos[i, 0], (nowCubePos[i, 1] + 1)].cube_state == CUBE_STATE.OK)
+            }
+            return false;
+        }
+        // 判斷方塊右邊有沒有HIT
+        public bool CubeHitRight()
+        {
+            for (int i = 0; i < nowCubePos.Length; i++)
+            {
+                // 判斷是不是T型
+                if (nowCubePos[i, 0] != -1)
                 {
-                    return true;
-                }
-                // check down edge
-                else if (nowCubePos[i, 0] - 1 < 0)
-                {
-                    return true;
-                }
-                // check left edge
-                else if (nowCubePos[i, 1] - 1 < 0)
-                {
-                    return true;
-                }
-                // check right edge
-                else if (nowCubePos[i, 1] + 1 > 9)
-                {
-                    return true;
+                    // check right
+                    if (block[nowCubePos[i, 0], (nowCubePos[i, 1] + 1)].cube_state == CUBE_STATE.OK)
+                    {
+                        return true;
+                    }
+                    // check right edge
+                    else if (nowCubePos[i, 1] + 1 > 9)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -235,11 +265,11 @@ namespace Tetris
         // 消除ROW並加分數
         public void DeleteBlockRow(int x)
         {
-            int sc = 0,point = 10;  
-                for (int j = 0; j < 10; j++) {
-                    block[x, j] = new Block(CUBE.NONE, CUBE_STATE.DELETE);
-                }
-            sc = sc + point ;
+            int sc = 0, point = 10;
+            for (int j = 0; j < 10; j++) {
+                block[x, j] = new Block(CUBE.NONE, CUBE_STATE.DELETE);
+            }
+            sc = sc + point;
             SetScore(sc);
         }
 
