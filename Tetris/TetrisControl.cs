@@ -40,11 +40,11 @@ namespace Tetris
             {
                 if (c == Keys.A)
                 {
-                    tetrisModel.CubeMoveRight();
+                    tetrisModel.CubeMoveLeft();
                 }
                 else if (c == Keys.D)
                 {
-                    tetrisModel.CubeMoveLeft();
+                    tetrisModel.CubeMoveRight();
                 }
                 else if (c == Keys.S)
                 {
@@ -57,6 +57,11 @@ namespace Tetris
                 else if (c == Keys.Space)
                 {
                     tetrisModel.CubeRotate();
+                }
+                else if (c == Keys.Z)
+                {
+                    tetrisModel.block[18, 5].cube = TetrisModel.CUBE.L;
+                    tetrisModel.block[18, 5].cube_state = TetrisModel.CUBE_STATE.MOVE;
                 }
             }
         }

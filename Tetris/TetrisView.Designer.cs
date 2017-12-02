@@ -116,7 +116,7 @@
             // blockPanel
             // 
             this.blockPanel.Location = new System.Drawing.Point(16, 15);
-            this.blockPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.blockPanel.Margin = new System.Windows.Forms.Padding(4);
             this.blockPanel.Name = "blockPanel";
             this.blockPanel.Size = new System.Drawing.Size(267, 500);
             this.blockPanel.TabIndex = 16;
@@ -124,7 +124,7 @@
             // nextPanel
             // 
             this.nextPanel.Location = new System.Drawing.Point(291, 15);
-            this.nextPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nextPanel.Margin = new System.Windows.Forms.Padding(4);
             this.nextPanel.Name = "nextPanel";
             this.nextPanel.Size = new System.Drawing.Size(107, 100);
             this.nextPanel.TabIndex = 17;
@@ -142,6 +142,7 @@
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.pauseButton);
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "TetrisView";
             this.Text = "TetrisView";

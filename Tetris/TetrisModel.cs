@@ -56,9 +56,9 @@ namespace Tetris
         }
 
         private STATE nowState;
-        private Block[,] block;
+        public Block[,] block;
         private Block[,] nextBlock;
-        private int blockx = 20, blocky = 10;       // BLOCK SIZE
+        private int blockx = 24, blocky = 10;       // BLOCK SIZE
         private int nextBlockx = 4, nextBlocky = 4; // NEXTBLOCK SIZE
         private int timer;
         private int score;
@@ -76,7 +76,7 @@ namespace Tetris
             nowState = STATE.STOP;
             // new Block and init them to CUBE.NONE
             // TODO : ...
-            block = new Block[blockx, blocky];      //遊戲BLOCK 10*20
+            block = new Block[blockx, blocky];      //遊戲BLOCK 10*24  4格看不到
             for (int i = 0; i < blockx; i++)
             {
                 for (int j = 0; j < blocky; j++)
@@ -95,7 +95,15 @@ namespace Tetris
 
             //set now cube position
             nowCubePos = new int[5, 2];
-
+            for(int i =0;i<5 ;i++)
+            {
+                for(int j = 0;j<2 ;j++)
+                {
+                    nowCubePos[i, j] = -1;
+                }
+            }
+            nowCubePos[0, 0] = 18;
+            nowCubePos[0, 1] = 5;
             NextCreate();
 
             timer = 0;
@@ -177,25 +185,45 @@ namespace Tetris
 
         public void CubeAutoDown()
         {
+            if (CubeHitBottom())
+            {
+                BlockScan();
+                for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.OK;
+                    }
+                }
+                CubeCreate();
+                NextCreate();
+            }
+            else
+            {
+                CubeMoveDown();
+            }
+
             tetrisView.ViewUpdate();
         }
 
         // 判斷方塊下面有沒有HIT
-        public bool CubeHitButton() {
-            for (int i = 0; i < nowCubePos.Length; i++)
+        public bool CubeHitBottom() {
+            for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
             {
                 // 判斷是不是T型
-                if (nowCubePos[i, 0] != -1) {
-                    // check down
-                    if (block[(nowCubePos[i, 0] - 1), nowCubePos[i, 1]].cube_state == CUBE_STATE.OK)
-                    {
-                        return true;
-                    }
+                if (nowCubePos[i, 0] != -1)
+                {
                     // check down edge
-                    else if (nowCubePos[i, 0] - 1 < 0)
+                    if (nowCubePos[i, 0] - 1 < 0)
                     {
                         return true;
                     }
+                    // check down
+                    else if (block[(nowCubePos[i, 0] - 1), nowCubePos[i, 1]].cube_state == CUBE_STATE.OK)
+                    {
+                        return true;
+                    }
+                    
                 }
             }
             return false;
@@ -203,21 +231,22 @@ namespace Tetris
         // 判斷方塊左邊有沒有HIT
         public bool CubeHitLeft()
         {
-            for (int i = 0; i < nowCubePos.Length; i++)
+            for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
             {   
                 // 判斷是不是T型
                 if (nowCubePos[i, 0] != -1)
                 {
-                    // check left
-                    if (block[nowCubePos[i, 0], (nowCubePos[i, 1] - 1)].cube_state == CUBE_STATE.OK)
-                    {
-                        return true;
-                    }
                     // check left edge
-                    else if (nowCubePos[i, 1] - 1 < 0)
+                    if (nowCubePos[i, 1] - 1 < 0)
                     {
                         return true;
                     }
+                    // check left
+                    else if (block[nowCubePos[i, 0], (nowCubePos[i, 1] - 1)].cube_state == CUBE_STATE.OK)
+                    {
+                        return true;
+                    }
+
                 }
             }
             return false;
@@ -225,7 +254,7 @@ namespace Tetris
         // 判斷方塊右邊有沒有HIT
         public bool CubeHitRight()
         {
-            for (int i = 0; i < nowCubePos.Length; i++)
+            for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
             {
                 // 判斷是不是T型
                 if (nowCubePos[i, 0] != -1)
@@ -287,22 +316,88 @@ namespace Tetris
 
         public void CubeGoDown()
         {
-
+            for(;!CubeHitBottom();)
+            {
+                CubeMoveDown();
+            }
         }
 
         public void CubeMoveDown()
         {
-
+            if (!CubeHitBottom())
+            {
+                CUBE cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+                for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.NONE;
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = CUBE.NONE;
+                        nowCubePos[i, 0] -= 1;
+                    }
+                }
+                for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.MOVE;
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = cubeType;
+                    }
+                }
+                tetrisView.ViewUpdate();
+            }
         }
 
         public void CubeMoveRight()
         {
-
+            if (!CubeHitRight())
+            {
+                CUBE cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+                for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.NONE;
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = CUBE.NONE;
+                        nowCubePos[i, 1] += 1;
+                    }
+                }
+                for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.MOVE;
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = cubeType;
+                    }
+                }
+                tetrisView.ViewUpdate();
+            }
         }
 
         public void CubeMoveLeft()
         {
-
+            if(!CubeHitLeft())
+            {
+                CUBE cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+                for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.NONE;
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = CUBE.NONE;
+                        nowCubePos[i, 1] -= 1;
+                    }
+                }
+                for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.MOVE;
+                        block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = cubeType;
+                    }
+                }
+                tetrisView.ViewUpdate();
+            }
         }
 
         public void CubeRotate()
