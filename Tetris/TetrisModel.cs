@@ -56,7 +56,7 @@ namespace Tetris
         }
 
         private STATE nowState;
-        public Block[,] block;
+        private Block[,] block;
         private Block[,] nextBlock;
         private int blockx = 24, blocky = 10;       // BLOCK SIZE
         private int nextBlockx = 4, nextBlocky = 4; // NEXTBLOCK SIZE
@@ -76,7 +76,7 @@ namespace Tetris
             nowState = STATE.STOP;
             // new Block and init them to CUBE.NONE
             // TODO : ...
-            block = new Block[blockx, blocky];      //遊戲BLOCK 10*24  4格看不到
+            block = new Block[blockx, blocky];      //遊戲BLOCK 24*10  4格看不到
             for (int i = 0; i < blockx; i++)
             {
                 for (int j = 0; j < blocky; j++)
@@ -102,8 +102,6 @@ namespace Tetris
                     nowCubePos[i, j] = -1;
                 }
             }
-            nowCubePos[0, 0] = 18;
-            nowCubePos[0, 1] = 5;
             NextCreate();
 
             timer = 0;
@@ -167,27 +165,51 @@ namespace Tetris
 
         public void GameStart()
         {
-            SetTimer(0);
-            SetScore(0);
-            SetState(STATE.DOING);
 
+            SetState(STATE.DOING);
+            tetrisView.ViewUpdate();
         }
 
         public void GamePause()
         {
             SetState(STATE.PAUSE);
+
+            tetrisView.ViewUpdate();
         }
 
         public void GameOver()
         {
+            SetTimer(0);
+            SetScore(0);
+            SetLevel(1);
             SetState(STATE.STOP);
+            /*for (int col = 0; col < blocky; col++)
+            {
+                for (int row = 0; row < blockx; row++)
+                {
+                    block[row, col].cube = CUBE.S_RE;
+                }
+            }
+            for (int col = 0; col < nextBlocky; col++)
+            {
+                for (int row = 0; row < nextBlockx; row++)
+                {
+                    nextBlock[row, col].cube = CUBE.S_RE;
+                }
+            }*/
+            tetrisView.ViewUpdate();
         }
 
+        
         public void CubeAutoDown()
         {
+            //if cube hit bottom we need to scan the block for delete row and then create new cube and next cube
+            //if not hit we need call move down
             if (CubeHitBottom())
             {
                 BlockScan();
+
+                //change the cube state to OK
                 for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
                 {
                     if (nowCubePos[i, 0] != -1)
@@ -259,16 +281,18 @@ namespace Tetris
                 // 判斷是不是T型
                 if (nowCubePos[i, 0] != -1)
                 {
-                    // check right
-                    if (block[nowCubePos[i, 0], (nowCubePos[i, 1] + 1)].cube_state == CUBE_STATE.OK)
-                    {
-                        return true;
-                    }
                     // check right edge
-                    else if (nowCubePos[i, 1] + 1 > 9)
+                    if (nowCubePos[i, 1] + 1 > 9)
                     {
                         return true;
                     }
+
+                    // check right
+                    else if (block[nowCubePos[i, 0], (nowCubePos[i, 1] + 1)].cube_state == CUBE_STATE.OK)
+                    {
+                        return true;
+                    }
+
                 }
             }
             return false;
@@ -304,7 +328,7 @@ namespace Tetris
 
         public void CubeCreate()
         {
-
+            //you need to change not only block but also nowCubePos
         }
 
         private void NextCreate()
@@ -314,8 +338,10 @@ namespace Tetris
 
         ///////////////// people Control /////////////////
 
+        //cube go down to bottom
         public void CubeGoDown()
         {
+            //call move down until cube hit bottom
             for(;!CubeHitBottom();)
             {
                 CubeMoveDown();
@@ -324,18 +350,28 @@ namespace Tetris
 
         public void CubeMoveDown()
         {
+            //check if cube is hit the bottom cube or side will do not thing
             if (!CubeHitBottom())
             {
-                CUBE cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+                //record new cube type
+                CUBE cubeType = CUBE.NONE;
+                if (nowCubePos[0, 0] != -1)
+                    cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+
+                //erase the moving cube
                 for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
                 {
                     if (nowCubePos[i, 0] != -1)
                     {
                         block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.NONE;
                         block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = CUBE.NONE;
+
+                        //record the new cube position
                         nowCubePos[i, 0] -= 1;
                     }
                 }
+
+                //set the new position
                 for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
                 {
                     if (nowCubePos[i, 0] != -1)
@@ -350,18 +386,28 @@ namespace Tetris
 
         public void CubeMoveRight()
         {
+            //check if cube is hit the right cube or side will do not thing
             if (!CubeHitRight())
             {
-                CUBE cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+                //record new cube type
+                CUBE cubeType = CUBE.NONE;
+                if (nowCubePos[0, 0] != -1)
+                    cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+
+                //erase the moving cube
                 for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
                 {
                     if (nowCubePos[i, 0] != -1)
                     {
                         block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.NONE;
                         block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = CUBE.NONE;
+
+                        //record the new cube position
                         nowCubePos[i, 1] += 1;
                     }
                 }
+
+                //set the new position
                 for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
                 {
                     if (nowCubePos[i, 0] != -1)
@@ -376,18 +422,28 @@ namespace Tetris
 
         public void CubeMoveLeft()
         {
-            if(!CubeHitLeft())
+            //check if cube is hit the left cube or side will do not thing
+            if (!CubeHitLeft())
             {
-                CUBE cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+                //record new cube type
+                CUBE cubeType = CUBE.NONE;
+                if (nowCubePos[0, 0] != -1)
+                    cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+
+                //erase the moving cube
                 for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
                 {
                     if (nowCubePos[i, 0] != -1)
                     {
                         block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.NONE;
                         block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube = CUBE.NONE;
+
+                        //record the new cube position
                         nowCubePos[i, 1] -= 1;
                     }
                 }
+
+                //set the new position
                 for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
                 {
                     if (nowCubePos[i, 0] != -1)

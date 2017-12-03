@@ -58,11 +58,6 @@ namespace Tetris
                 {
                     tetrisModel.CubeRotate();
                 }
-                else if (c == Keys.Z)
-                {
-                    tetrisModel.block[18, 5].cube = TetrisModel.CUBE.L;
-                    tetrisModel.block[18, 5].cube_state = TetrisModel.CUBE_STATE.MOVE;
-                }
             }
         }
 
@@ -92,7 +87,10 @@ namespace Tetris
 
         public void SecTimerTrigger()
         {
-            tetrisModel.SetTimer(tetrisModel.GetTimer() + 1);
+            if (tetrisModel.GetState().Equals(TetrisModel.STATE.DOING))
+            {
+                tetrisModel.SetTimer(tetrisModel.GetTimer() + 1);
+            }
         }
     }
 }
