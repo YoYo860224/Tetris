@@ -458,7 +458,97 @@ namespace Tetris
 
         public void CubeRotate()
         {
+            int[,] nextRotation = new int[5, 5]; //unit rotation array
+            int[,] reset = new int[5, 2]; //temp of "nowCubeposition"
+            int[] tempPosition = new int[2];
+            int count = 1;
+            CUBE cubeType = CUBE.NONE;
 
+            if (nowCubePos[0, 0] != -1)
+                cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    nextRotation[i, j] = 0;
+                }
+            }
+
+            for (int i = 0; i < 5; i++)  //校正成原坐標
+            {
+                if (nowCubePos[i, 0] != -1)
+                {
+                    reset[i, 0] = nowCubePos[i, 0] - (nowCubePos[0, 0] - 2);
+                    reset[i, 1] = nowCubePos[i, 1] - (nowCubePos[0, 1] - 2);
+                    nextRotation[reset[i, 0], reset[i, 0]] = 1;
+                }
+            }
+
+            if (cubeType != CUBE.SQUARE)
+            {
+                int n = 5;
+                for (int i = 0; i < n / 2; i++)
+                {
+                    for (int j = i; j < n - 1 - i; j++)
+                    {
+                        int temp = nextRotation[i, j];
+                        nextRotation[i, j] = nextRotation[n - 1 - j, i];
+                        nextRotation[n - 1 - j, i] = nextRotation[n - 1 - i, n - 1 - j];
+                        nextRotation[n - 1 - i, n - 1 - j] = nextRotation[j, n - 1 - i];
+                        nextRotation[j, n - 1 - i] = temp;
+                    }
+                }
+            }
+            else if (cubeType == CUBE.SQUARE)
+            {
+                return;
+            }
+
+            for (int i = 0; i < 5; i++) //將轉好的方塊的相對坐標記錄下來
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if (i == 2 && j == 2)
+                    {
+                        continue;
+                    }
+                    if (nextRotation[i, j] == 1)
+                    {
+                        reset[count, 0] = i;
+                        reset[count, 1] = j;
+                        count++;
+                    }
+                }
+            }
+
+            tempPosition[0] = nowCubePos[0, 0] - 2; //計算轉換前的坐標距離
+            tempPosition[1] = nowCubePos[0, 1] - 2;
+
+            for (int i = 0; i < 5; i++) //判斷可否旋轉
+            {
+                if (reset[i, 0] + tempPosition[0] < 0 || reset[i, 1] + tempPosition[1] < 0 || reset[i, 1] + tempPosition[1] > 9)
+                {
+                    reset[0, 0] = -1;
+                    break; //can't rotate
+                }
+            }
+
+            if (reset[0, 0] != -1)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {
+                        block[nowCubePos[i, 0], nowCubePos[i, 1]].cube_state = CUBE_STATE.NONE;
+                        nowCubePos[i, 0] = reset[i, 0] + tempPosition[0];
+                        nowCubePos[i, 1] = reset[i, 1] + tempPosition[1];
+                        block[nowCubePos[i, 0], nowCubePos[i, 1]].cube_state = CUBE_STATE.MOVE;
+                        block[nowCubePos[i, 0], nowCubePos[i, 1]].cube = cubeType;
+                    }
+                }
+                tetrisView.ViewUpdate();
+            }
         }
 
         public void CubeChangeNext()
