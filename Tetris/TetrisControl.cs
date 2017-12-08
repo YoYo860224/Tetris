@@ -90,6 +90,7 @@ namespace Tetris
             if (tetrisModel.GetState().Equals(TetrisModel.STATE.DOING))
             {
                 tetrisModel.SetTimer(tetrisModel.GetTimer() + 1);
+                tetrisModel.LevelUp();
             }
         }
     }
