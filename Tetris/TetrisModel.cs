@@ -560,8 +560,8 @@ namespace Tetris
         {
             if (timer > 0 && timer % 10 == 0)
             {
-                this.SetLevel(this.GetLevel() + 1);
-                tetrisView.TimerIntervalSet((int)(timerInterval * 0.9));
+                this.SetLevel(this.GetLevel() + 1);               
+                tetrisView.TimerIntervalSet((int)(timerInterval *= (float)0.9));
             }
         }
 
