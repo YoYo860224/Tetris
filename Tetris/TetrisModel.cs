@@ -63,6 +63,7 @@ namespace Tetris
         private int timer;
         private int score;
         private int level;
+        private short resetflag;
         private int[,] nowCubePos;// Now cube position
         private float timerInterval;
         private TetrisView tetrisView;
@@ -109,6 +110,7 @@ namespace Tetris
             score = 0;
             level = 1;
             timerInterval = 1000;
+            resetflag = 0;
         }
 
         ///////////////////  get set  /////////////////////
@@ -167,7 +169,24 @@ namespace Tetris
 
         public void GameStart()
         {
-
+            if(resetflag == 1)
+            {
+                for (int col = 0; col < blocky; col++)
+                {
+                    for (int row = 0; row < blockx; row++)
+                    {
+                        block[row, col].cube = CUBE.NONE;
+                    }
+                }
+                for (int col = 0; col < nextBlocky; col++)
+                {
+                    for (int row = 0; row < nextBlockx; row++)
+                    {
+                        nextBlock[row, col].cube = CUBE.NONE;
+                    }
+                }
+            }
+            resetflag = 0;
             SetState(STATE.DOING);
             tetrisView.ViewUpdate();
         }
@@ -185,7 +204,7 @@ namespace Tetris
             SetScore(0);
             SetLevel(1);
             SetState(STATE.STOP);
-            /*for (int col = 0; col < blocky; col++)
+            for (int col = 0; col < blocky; col++)
             {
                 for (int row = 0; row < blockx; row++)
                 {
@@ -198,7 +217,8 @@ namespace Tetris
                 {
                     nextBlock[row, col].cube = CUBE.S_RE;
                 }
-            }*/
+            }
+            resetflag = 1;
             tetrisView.ViewUpdate();
         }
 
