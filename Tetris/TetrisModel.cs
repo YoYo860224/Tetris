@@ -328,20 +328,27 @@ namespace Tetris
         // 掃描需要消除的ROW
         public void BlockScan()
         {
+            int count = 0;
             for (int i = 0; i < blockx; i++)
             {
                 for (int j = 0; j < blocky; j++)
                 {
-                    if (block[i, j].cube_state != CUBE_STATE.OK)
+                    if (block[i, j].cube_state != CUBE_STATE.NONE && i + 1 > 19)
                     {
-                        break;
+                        GameOver();
                     }
-                    if (j == (blocky - 1))
+                    if (block[i, j].cube_state == CUBE_STATE.OK)
+                    {
+                        count++;
+                    }
+                    if (count == 20)
                     {
                         DeleteBlockRow(i);
-                        i = -1;
+                        i = -1;                     
                     }
+                    count = 0;
                 }
+
             }
         }
         // 消除ROW並加分數
