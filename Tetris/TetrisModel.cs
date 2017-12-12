@@ -66,6 +66,7 @@ namespace Tetris
         private short resetflag;
         private int[,] nowCubePos;// Now cube position
         private float timerInterval;
+        private bool CubeIsChanged;//判斷方塊是否更換過
         private TetrisView tetrisView;
 
         public TetrisModel(TetrisView view) {
@@ -75,6 +76,7 @@ namespace Tetris
 
         public void InitAll()
         {
+            CubeIsChanged = false;//初始為否
             nowState = STATE.STOP;
             // new Block and init them to CUBE.NONE
             // TODO : ...
@@ -187,6 +189,12 @@ namespace Tetris
                 }
             }
             resetflag = 0;
+            if (nowState == STATE.STOP)//初始畫面
+            {
+                InitAll();
+                CubeCreate();
+                NextCreate();
+            }
             SetState(STATE.DOING);
             tetrisView.ViewUpdate();
         }
@@ -229,6 +237,7 @@ namespace Tetris
             //if not hit we need call move down
             if (CubeHitBottom())
             {
+                CubeIsChanged = false;
                 BlockScan();
 
                 //change the cube state to OK
@@ -351,11 +360,167 @@ namespace Tetris
         public void CubeCreate()
         {
             //you need to change not only block but also nowCubePos
+            CUBE Cubetype = CUBE.NONE;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    nowCubePos[i, j] = -1;
+
+                }
+            }
+            for (int i = 0; i < nextBlockx; i++)
+            {
+                for (int j = 0; j < nextBlocky; j++)
+                {
+                    block[i + 18, j + 3] = nextBlock[i, j];
+                    if (nextBlock[i, j].cube != CUBE.NONE)
+                        Cubetype = nextBlock[i, j].cube;
+                }
+            }
+            switch (Cubetype)
+            {
+                case CUBE.T:
+                    nowCubePos[0, 0] = 19;
+                    nowCubePos[0, 1] = 4;
+                    nowCubePos[1, 0] = 20;
+                    nowCubePos[1, 1] = 4;
+                    nowCubePos[2, 0] = 18;
+                    nowCubePos[2, 1] = 4;
+                    nowCubePos[3, 0] = 19;
+                    nowCubePos[3, 1] = 5;
+                    break;
+                case CUBE.I:
+                    nowCubePos[0, 0] = 20;
+                    nowCubePos[0, 1] = 4;
+                    nowCubePos[1, 0] = 21;
+                    nowCubePos[1, 1] = 4;
+                    nowCubePos[2, 0] = 19;
+                    nowCubePos[2, 1] = 4;
+                    nowCubePos[3, 0] = 18;
+                    nowCubePos[3, 1] = 4;
+                    break;
+                case CUBE.SQUARE:
+                    nowCubePos[0, 0] = 20;
+                    nowCubePos[0, 1] = 4;
+                    nowCubePos[1, 0] = 20;
+                    nowCubePos[1, 1] = 5;
+                    nowCubePos[2, 0] = 19;
+                    nowCubePos[2, 1] = 4;
+                    nowCubePos[3, 0] = 19;
+                    nowCubePos[3, 1] = 5;
+                    break;
+                case CUBE.L:
+                    nowCubePos[0, 0] = 19;
+                    nowCubePos[0, 1] = 4;
+                    nowCubePos[1, 0] = 20;
+                    nowCubePos[1, 1] = 4;
+                    nowCubePos[2, 0] = 18;
+                    nowCubePos[2, 1] = 4;
+                    nowCubePos[3, 0] = 18;
+                    nowCubePos[3, 1] = 5;
+                    break;
+                case CUBE.L_RE:
+                    nowCubePos[0, 0] = 19;
+                    nowCubePos[0, 1] = 5;
+                    nowCubePos[1, 0] = 20;
+                    nowCubePos[1, 1] = 5;
+                    nowCubePos[2, 0] = 18;
+                    nowCubePos[2, 1] = 5;
+                    nowCubePos[3, 0] = 18;
+                    nowCubePos[3, 1] = 4;
+                    break;
+                case CUBE.S:
+                    nowCubePos[0, 0] = 19;
+                    nowCubePos[0, 1] = 4;
+                    nowCubePos[1, 0] = 20;
+                    nowCubePos[1, 1] = 4;
+                    nowCubePos[2, 0] = 19;
+                    nowCubePos[2, 1] = 5;
+                    nowCubePos[3, 0] = 18;
+                    nowCubePos[3, 1] = 5;
+                    break;
+                case CUBE.S_RE:
+                    nowCubePos[0, 0] = 19;
+                    nowCubePos[0, 1] = 4;
+                    nowCubePos[1, 0] = 19;
+                    nowCubePos[1, 1] = 5;
+                    nowCubePos[2, 0] = 20;
+                    nowCubePos[2, 1] = 5;
+                    nowCubePos[3, 0] = 18;
+                    nowCubePos[3, 1] = 4;
+                    break;
+            }
         }
 
         private void NextCreate()
         {
+            Random rand = new Random();
+            CUBE nextCube = (CUBE)(rand.Next() % 7 + 1);
+            NextCreate(nextCube);
+        }
 
+        private void NextCreate(CUBE nextCube)
+        {
+            for (int i = 0; i < nextBlockx; i++)
+            {
+                for (int j = 0; j < nextBlocky; j++)
+                {
+                    nextBlock[i, j] = new Block(CUBE.NONE, CUBE_STATE.NONE);
+                }
+            }
+
+            switch (nextCube)
+            {
+                case CUBE.T:
+                    nextBlock[0, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[2, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    break;
+
+                case CUBE.I:
+                    nextBlock[0, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[2, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[3, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    break;
+
+                case CUBE.SQUARE:
+                    nextBlock[1, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[2, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[2, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    break;
+
+                case CUBE.L:
+                    nextBlock[0, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[2, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[0, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    break;
+
+                case CUBE.L_RE:
+                    nextBlock[0, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[0, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[2, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    break;
+
+                case CUBE.S:
+                    nextBlock[1, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[2, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[0, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    break;
+
+                case CUBE.S_RE:
+                    nextBlock[0, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 1] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[1, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    nextBlock[2, 2] = new Block(nextCube, CUBE_STATE.MOVE);
+                    break;
+            }
         }
 
         ///////////////// people Control /////////////////
@@ -587,7 +752,25 @@ namespace Tetris
 
         public void CubeChangeNext()
         {
-
+            if (!CubeIsChanged)
+            {
+                CubeIsChanged = true;
+                CUBE now = new CUBE();
+                for (int i = 0; i < blockx; i++)
+                {
+                    for (int j = 0; j < blocky; j++)
+                    {
+                        if ((block[i, j].cube_state == CUBE_STATE.MOVE))
+                        {
+                            now = block[i, j].cube;
+                            block[i, j] = new Block(CUBE.NONE, CUBE_STATE.NONE);
+                        }
+                    }
+                }
+                CubeCreate();
+                NextCreate(now);
+            }
+            tetrisView.ViewUpdate();
         }
         //////////////////////////////////////////////////
     }

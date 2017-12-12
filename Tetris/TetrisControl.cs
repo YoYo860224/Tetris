@@ -58,6 +58,10 @@ namespace Tetris
                 {
                     tetrisModel.CubeRotate();
                 }
+                else if (c == Keys.R)//更換方塊
+                {
+                    tetrisModel.CubeChangeNext();
+                }
             }
         }
 
