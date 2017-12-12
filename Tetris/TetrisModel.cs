@@ -201,7 +201,9 @@ namespace Tetris
 
         public void GamePause()
         {
-            SetState(STATE.PAUSE);
+            if (nowState == STATE.STOP) ;
+            else
+                SetState(STATE.PAUSE);
 
             tetrisView.ViewUpdate();
         }
