@@ -238,7 +238,6 @@ namespace Tetris
             if (CubeHitBottom())
             {
                 CubeIsChanged = false;
-                BlockScan();
 
                 //change the cube state to OK
                 for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
@@ -248,6 +247,7 @@ namespace Tetris
                         block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.OK;
                     }
                 }
+                BlockScan();
                 CubeCreate();
                 NextCreate();
             }
@@ -262,10 +262,7 @@ namespace Tetris
         // 判斷方塊下面有沒有HIT
         public bool CubeHitBottom() {
             for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
-            {
-                // 判斷是不是T型
-                if (nowCubePos[i, 0] != -1)
-                {
+            {             
                     // check down edge
                     if (nowCubePos[i, 0] - 1 < 0)
                     {
@@ -276,8 +273,6 @@ namespace Tetris
                     {
                         return true;
                     }
-                    
-                }
             }
             return false;
         }
@@ -342,6 +337,7 @@ namespace Tetris
                     if (j == (blocky - 1))
                     {
                         DeleteBlockRow(i);
+                        i = -1;
                     }
                 }
             }
@@ -352,6 +348,11 @@ namespace Tetris
             int sc = 0, point = 10;
             for (int j = 0; j < 10; j++) {
                 block[x, j] = new Block(CUBE.NONE, CUBE_STATE.DELETE);
+            }
+            for (int i = x; i < 23; i++) {
+                for (int j = 0; j < 10; j++) {
+                    block[i, j] = block[i + 1, j];
+                }
             }
             sc = sc + point;
             SetScore(sc);
@@ -570,7 +571,6 @@ namespace Tetris
                 tetrisView.ViewUpdate();
             }
         }
-
         public void CubeMoveRight()
         {
             //check if cube is hit the right cube or side will do not thing
