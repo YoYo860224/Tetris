@@ -98,7 +98,7 @@ namespace Tetris
             }
 
             //set now cube position
-            nowCubePos = new int[5, 2];
+            nowCubePos = new int[5  , 2];
             for(int i =0;i<5 ;i++)
             {
                 for(int j = 0;j<2 ;j++)
@@ -341,14 +341,14 @@ namespace Tetris
                     {
                         count++;
                     }
-                    if (count == 20)
+                    if (count == 10)
                     {
                         DeleteBlockRow(i);
                         i = -1;                     
                     }
-                    count = 0;
-                }
 
+                }
+                count = 0;
             }
         }
         // 消除ROW並加分數
@@ -371,7 +371,7 @@ namespace Tetris
         {
             //you need to change not only block but also nowCubePos
             CUBE Cubetype = CUBE.NONE;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
@@ -543,6 +543,16 @@ namespace Tetris
             {
                 CubeMoveDown();
             }
+            for (int i = 0; i < nowCubePos.GetUpperBound(0); i++)
+            {
+                if (nowCubePos[i, 0] != -1)
+                {
+                    block[nowCubePos[i, 0], (nowCubePos[i, 1])].cube_state = CUBE_STATE.OK;
+                }
+            }
+            BlockScan();
+            CubeCreate();
+            NextCreate();
         }
 
         public void CubeMoveDown()

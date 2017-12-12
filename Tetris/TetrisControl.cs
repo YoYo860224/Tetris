@@ -54,7 +54,7 @@ namespace Tetris
                 {
                     tetrisModel.CubeGoDown();
                 }
-                else if (c == Keys.Space)
+                else if (c == Keys.V)
                 {
                     tetrisModel.CubeRotate();
                 }
