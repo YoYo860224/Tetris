@@ -670,14 +670,14 @@ namespace Tetris
             int count = 1;
             CUBE cubeType = CUBE.NONE;
 
-            if (cubeType == CUBE.SQUARE)
-            {
-                return;
-            }
-
             if (nowCubePos[0, 0] != -1)
             {
                 cubeType = block[nowCubePos[0, 0], (nowCubePos[0, 1])].cube;
+            }
+
+            if (cubeType == CUBE.SQUARE)
+            {
+                return;
             }
 
             for (int i = 0; i < 5; i++)
@@ -692,9 +692,9 @@ namespace Tetris
             {
                 if (nowCubePos[i, 0] != -1)
                 {
-                    reset[i, 0] = nowCubePos[i, 0] - (nowCubePos[0, 0] - 2);
-                    reset[i, 1] = nowCubePos[i, 1] - (nowCubePos[0, 1] - 2);
-                    nextRotation[reset[i, 0], reset[i, 0]] = 1;
+                    reset[i, 1] = nowCubePos[i, 0] - (nowCubePos[0, 0] - 2);
+                    reset[i, 0] = nowCubePos[i, 1] - (nowCubePos[0, 1] - 2);
+                    nextRotation[reset[i, 0], reset[i, 1]] = i+10;
                 }
             }
 
@@ -713,17 +713,12 @@ namespace Tetris
 
             for (int i = 0; i < 5; i++) //將轉好的方塊的相對坐標記錄下來
             {
-                for (int j = 0; j < 5; j++)
+                for(int j=0;j<5;j++)
                 {
-                    if (i == 2 && j == 2)
+                    if(nextRotation[i,j]>=10)
                     {
-                        continue;
-                    }
-                    if (nextRotation[i, j] == 1)
-                    {
-                        reset[count, 0] = i;
-                        reset[count, 1] = j;
-                        count++;
+                        reset[nextRotation[i, j] - 10, 0] = i;
+                        reset[nextRotation[i, j] - 10, 1] = j;
                     }
                 }
             }
@@ -731,13 +726,13 @@ namespace Tetris
             tempPosition[0] = nowCubePos[0, 0] - 2; //計算轉換前的坐標距離
             tempPosition[1] = nowCubePos[0, 1] - 2;
 
-            for (int i = 0; i < 5; i++) //判斷可否旋轉
+            for (int i = 0; i < 4; i++) //判斷可否旋轉
             {
-                if (reset[i, 0] + tempPosition[0] < 0 || reset[i, 1] + tempPosition[1] < 0 || reset[i, 1] + tempPosition[1] > 9)
+                if (reset[i, 0] + tempPosition[1] < 0 || reset[i, 0] + tempPosition[1] > 9)
                 {
                     return;
                 }
-                if (block[reset[i, 0] + tempPosition[0], reset[i, 1] + tempPosition[1]].cube_state == CUBE_STATE.OK)
+                if (block[reset[i, 1] + tempPosition[0], reset[i, 0] + tempPosition[1]].cube_state == CUBE_STATE.OK)
                 {
                     return;
                 }
@@ -745,19 +740,21 @@ namespace Tetris
 
             if (reset[0, 0] != -1) //將旋轉後的方塊放回原位置
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (nowCubePos[i, 0] != -1)
-                    {
+                    {                      
                         block[nowCubePos[i, 0], nowCubePos[i, 1]].cube_state = CUBE_STATE.NONE;
-                        nowCubePos[i, 0] = reset[i, 0] + tempPosition[0];
-                        nowCubePos[i, 1] = reset[i, 1] + tempPosition[1];
+                        block[nowCubePos[i, 0], nowCubePos[i, 1]].cube = CUBE.NONE;                       
+                        nowCubePos[i, 0] = reset[i, 1] + tempPosition[0];
+                        nowCubePos[i, 1] = reset[i, 0] + tempPosition[1];
                         block[nowCubePos[i, 0], nowCubePos[i, 1]].cube_state = CUBE_STATE.MOVE;
                         block[nowCubePos[i, 0], nowCubePos[i, 1]].cube = cubeType;
                     }
                 }
                 tetrisView.ViewUpdate();
             }
+            
         }
 
         public void LevelUp()
