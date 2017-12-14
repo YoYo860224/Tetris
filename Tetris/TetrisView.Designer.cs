@@ -32,9 +32,9 @@
             this.levelLabel = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.timeLabel = new System.Windows.Forms.Label();
-            this.stopButton = new System.Windows.Forms.Button();
-            this.pauseButton = new System.Windows.Forms.Button();
-            this.startButton = new System.Windows.Forms.Button();
+            this.stopButton = new Tetris.NonSelectableButton();
+            this.pauseButton = new Tetris.NonSelectableButton();
+            this.startButton = new Tetris.NonSelectableButton();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.secTimer = new System.Windows.Forms.Timer(this.components);
             this.blockPanel = new System.Windows.Forms.Panel();
@@ -155,9 +155,9 @@
         protected System.Windows.Forms.Label levelLabel;
         protected System.Windows.Forms.Label scoreLabel;
         protected System.Windows.Forms.Label timeLabel;
-        protected System.Windows.Forms.Button stopButton;
-        protected System.Windows.Forms.Button pauseButton;
-        protected System.Windows.Forms.Button startButton;
+        protected NonSelectableButton stopButton;
+        protected NonSelectableButton pauseButton;
+        protected NonSelectableButton startButton;
         protected System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Panel blockPanel;
         private System.Windows.Forms.Panel nextPanel;

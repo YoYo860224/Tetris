@@ -38,27 +38,27 @@ namespace Tetris
             
             if (tetrisModel.GetState().Equals(TetrisModel.STATE.DOING))
             {
-                if (c == Keys.A)
-                {
-                    tetrisModel.CubeMoveLeft();
-                }
-                else if (c == Keys.D)
-                {
-                    tetrisModel.CubeMoveRight();
-                }
-                else if (c == Keys.S)
-                {
-                    tetrisModel.CubeMoveDown();
-                }
-                else if (c == Keys.C)
-                {
-                    tetrisModel.CubeGoDown();
-                }
-                else if (c == Keys.V)
+                if (c == Keys.Up)
                 {
                     tetrisModel.CubeRotate();
                 }
-                else if (c == Keys.R)//更換方塊
+                else if (c == Keys.Down)
+                {
+                    tetrisModel.CubeMoveDown();
+                }
+                else if (c == Keys.Right)
+                {
+                    tetrisModel.CubeMoveRight();
+                }
+                else if (c == Keys.Left)
+                {
+                    tetrisModel.CubeMoveLeft();
+                }
+                else if (c == Keys.Space)
+                {
+                    tetrisModel.CubeGoDown();
+                }
+                else if (c == Keys.C)   // 更換方塊
                 {
                     tetrisModel.CubeChangeNext();
                 }
