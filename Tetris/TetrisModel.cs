@@ -171,7 +171,7 @@ namespace Tetris
 
         public void GameStart()
         {
-            if(resetflag == 1)
+            if (resetflag == 1)
             {
                 for (int col = 0; col < blocky; col++)
                 {
@@ -229,6 +229,7 @@ namespace Tetris
                 }
             }
             resetflag = 1;
+            tetrisView.TimerIntervalSet(1000);
             tetrisView.ViewUpdate();
         }
 
@@ -252,13 +253,14 @@ namespace Tetris
                 BlockScan();
                 CubeCreate();
                 NextCreate();
+                tetrisView.ViewUpdate();
             }
             else
             {
                 CubeMoveDown();
             }
 
-            tetrisView.ViewUpdate();
+            
         }
 
         // 判斷方塊下面有沒有HIT
@@ -746,6 +748,12 @@ namespace Tetris
                     {                      
                         block[nowCubePos[i, 0], nowCubePos[i, 1]].cube_state = CUBE_STATE.NONE;
                         block[nowCubePos[i, 0], nowCubePos[i, 1]].cube = CUBE.NONE;                       
+                    }
+                }
+                for(int i=0;i<4;i++)
+                {
+                    if (nowCubePos[i, 0] != -1)
+                    {                      
                         nowCubePos[i, 0] = reset[i, 1] + tempPosition[0];
                         nowCubePos[i, 1] = reset[i, 0] + tempPosition[1];
                         block[nowCubePos[i, 0], nowCubePos[i, 1]].cube_state = CUBE_STATE.MOVE;
@@ -759,11 +767,17 @@ namespace Tetris
 
         public void LevelUp()
         {
-            if (timer > 0 && timer % 10 == 0)
+            int temp=level;
+            level = level / 100 + 1;
+            if (temp!=level)
             {
-                this.SetLevel(this.GetLevel() + 1);               
                 tetrisView.TimerIntervalSet((int)(timerInterval *= (float)0.9));
+            }                      
+            if (level>10)
+            {
+                level = 10;
             }
+            this.SetLevel(this.GetLevel());
         }
 
         public void CubeChangeNext()
