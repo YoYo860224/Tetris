@@ -356,7 +356,6 @@ namespace Tetris
         // 消除ROW並加分數
         public void DeleteBlockRow(int x)
         {
-            int sc = 0, point = 10;
             for (int j = 0; j < 10; j++) {
                 block[x, j] = new Block(CUBE.NONE, CUBE_STATE.DELETE);
             }
@@ -365,8 +364,7 @@ namespace Tetris
                     block[i, j] = block[i + 1, j];
                 }
             }
-            sc = sc + point;
-            SetScore(sc);
+            SetScore(GetScore()+10);
         }
 
         public void CubeCreate()
@@ -768,7 +766,7 @@ namespace Tetris
         public void LevelUp()
         {
             int temp=level;
-            level = level / 100 + 1;
+            level = score / 100 + 1;
             if (temp!=level)
             {
                 tetrisView.TimerIntervalSet((int)(timerInterval *= (float)0.9));
