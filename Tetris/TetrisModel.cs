@@ -86,6 +86,8 @@ namespace Tetris
                 for (int j = 0; j < blocky; j++)
                 {
                     block[i, j] = new Block();
+                    block[i, j].cube = CUBE.NONE;
+                    block[i, j].cube_state = CUBE_STATE.NONE;
                 }
             }
             nextBlock = new Block[nextBlockx, nextBlocky];//下個方塊 4*4
@@ -94,6 +96,8 @@ namespace Tetris
                 for (int j = 0; j < nextBlocky; j++)
                 {
                     nextBlock[i, j] = new Block();
+                    block[i, j].cube = CUBE.NONE;
+                    block[i, j].cube_state = CUBE_STATE.NONE;
                 }
             }
 
