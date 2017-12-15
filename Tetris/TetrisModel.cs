@@ -227,6 +227,7 @@ namespace Tetris
                 for (int row = 0; row < nextBlockx; row++)
                 {
                     nextBlock[row, col].cube = CUBE.S_RE;
+                    nextBlock[row, col].cube_state = CUBE_STATE.OK;
                 }
             }
             resetflag = 1;
@@ -252,8 +253,11 @@ namespace Tetris
                     }
                 }
                 BlockScan();
-                CubeCreate();
-                NextCreate();
+                if (nowState != STATE.STOP)
+                {
+                    CubeCreate();
+                    NextCreate();
+                }
                 tetrisView.ViewUpdate();
             }
             else
@@ -554,8 +558,11 @@ namespace Tetris
                 }
             }
             BlockScan();
-            CubeCreate();
-            NextCreate();
+            if (nowState != STATE.STOP)
+            {
+                CubeCreate();
+                NextCreate();
+            }
             tetrisView.ViewUpdate();
         }
 
