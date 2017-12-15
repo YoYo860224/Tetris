@@ -107,10 +107,11 @@ namespace Tetris
                 }
             }
             NextCreate();
-
+            
             timer = 0;
             score = 0;
             level = 1;
+            tetrisView.TimerIntervalSet(1000);
             timerInterval = 1000;
             resetflag = 0;
         }
@@ -361,7 +362,8 @@ namespace Tetris
             }
             for (int i = x; i < 23; i++) {
                 for (int j = 0; j < 10; j++) {
-                    block[i, j] = block[i + 1, j];
+                    block[i, j].cube = block[i + 1, j].cube;
+                    block[i, j].cube_state = block[i + 1, j].cube_state;
                 }
             }
             SetScore(GetScore()+10);
@@ -383,7 +385,8 @@ namespace Tetris
             {
                 for (int j = 0; j < nextBlocky; j++)
                 {
-                    block[i + 18, j + 3] = nextBlock[i, j];
+                    block[i + 18, j + 3].cube = nextBlock[i, j].cube;
+                    block[i + 18, j + 3].cube_state = nextBlock[i, j].cube_state;
                     if (nextBlock[i, j].cube != CUBE.NONE)
                         Cubetype = nextBlock[i, j].cube;
                 }
@@ -553,6 +556,7 @@ namespace Tetris
             BlockScan();
             CubeCreate();
             NextCreate();
+            tetrisView.ViewUpdate();
         }
 
         public void CubeMoveDown()
