@@ -335,6 +335,8 @@ namespace Tetris
         // 掃描需要消除的ROW
         public void BlockScan()
         {
+            CubeIsChanged = false;
+
             int count = 0;
             for (int i = 0; i < blockx; i++)
             {
