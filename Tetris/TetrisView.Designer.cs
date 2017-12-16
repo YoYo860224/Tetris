@@ -159,8 +159,8 @@
         protected NonSelectableButton pauseButton;
         protected NonSelectableButton startButton;
         protected System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Panel blockPanel;
-        private System.Windows.Forms.Panel nextPanel;
         protected System.Windows.Forms.Timer secTimer;
+        protected System.Windows.Forms.Panel blockPanel;
+        protected System.Windows.Forms.Panel nextPanel;
     }
 }
