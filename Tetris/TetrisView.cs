@@ -23,9 +23,9 @@ namespace Tetris
         {
             // init component
             InitializeComponent();
-            MakeMainBlock();
-            MakeNextBlock();
             SkinChange();
+            MakeMainBlock();
+            MakeNextBlock();           
 
             // create "M" V "C"
             tetrisModel = new TetrisModel(this);
@@ -66,7 +66,7 @@ namespace Tetris
                     allBlock[i, j].Size = new System.Drawing.Size(19, 19);
                     allBlock[i, j].TabIndex = 0;
                     allBlock[i, j].TabStop = false;
-                    allBlock[i, j].BackColor = Color.Black;
+                    allBlock[i, j].BackColor = ccMap[TetrisModel.CUBE.NONE];
 
                     blockPanel.Controls.Add(this.allBlock[i, j]);
                 }
@@ -92,7 +92,7 @@ namespace Tetris
                     nextBlock[i, j].Size = new System.Drawing.Size(19, 19);
                     nextBlock[i, j].TabIndex = 0;
                     nextBlock[i, j].TabStop = false;
-                    nextBlock[i, j].BackColor = Color.Black;
+                    nextBlock[i, j].BackColor = ccMap[TetrisModel.CUBE.NONE];
 
                     nextPanel.Controls.Add(this.nextBlock[i, j]);
                 }
