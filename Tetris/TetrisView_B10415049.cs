@@ -25,7 +25,7 @@ namespace Tetris
             return;
         }
 
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.SuspendLayout();
             // 
