@@ -32,13 +32,13 @@
             this.levelLabel = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.timeLabel = new System.Windows.Forms.Label();
-            this.stopButton = new Tetris.NonSelectableButton();
-            this.pauseButton = new Tetris.NonSelectableButton();
-            this.startButton = new Tetris.NonSelectableButton();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.secTimer = new System.Windows.Forms.Timer(this.components);
             this.blockPanel = new System.Windows.Forms.Panel();
             this.nextPanel = new System.Windows.Forms.Panel();
+            this.startButton = new Tetris.NonSelectableButton();
+            this.stopButton = new Tetris.NonSelectableButton();
+            this.pauseButton = new Tetris.NonSelectableButton();
             this.SuspendLayout();
             // 
             // levelLabel
@@ -68,43 +68,10 @@
             this.timeLabel.TabIndex = 12;
             this.timeLabel.Text = "Time:";
             // 
-            // stopButton
-            // 
-            this.stopButton.Location = new System.Drawing.Point(531, 391);
-            this.stopButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(100, 100);
-            this.stopButton.TabIndex = 11;
-            this.stopButton.Text = "Stop";
-            this.stopButton.UseVisualStyleBackColor = true;
-            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
-            // 
-            // pauseButton
-            // 
-            this.pauseButton.Location = new System.Drawing.Point(425, 391);
-            this.pauseButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(100, 100);
-            this.pauseButton.TabIndex = 10;
-            this.pauseButton.Text = "Pause";
-            this.pauseButton.UseVisualStyleBackColor = true;
-            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
-            // 
-            // startButton
-            // 
-            this.startButton.Location = new System.Drawing.Point(319, 391);
-            this.startButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(100, 100);
-            this.startButton.TabIndex = 9;
-            this.startButton.Text = "Start";
-            this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
-            // 
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 1000;
+            this.timer.Interval = 30;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // secTimer
@@ -128,6 +95,39 @@
             this.nextPanel.Name = "nextPanel";
             this.nextPanel.Size = new System.Drawing.Size(107, 100);
             this.nextPanel.TabIndex = 17;
+            // 
+            // startButton
+            // 
+            this.startButton.Location = new System.Drawing.Point(319, 391);
+            this.startButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(100, 100);
+            this.startButton.TabIndex = 9;
+            this.startButton.Text = "Start";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            // 
+            // stopButton
+            // 
+            this.stopButton.Location = new System.Drawing.Point(531, 391);
+            this.stopButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.stopButton.Name = "stopButton";
+            this.stopButton.Size = new System.Drawing.Size(100, 100);
+            this.stopButton.TabIndex = 11;
+            this.stopButton.Text = "Stop";
+            this.stopButton.UseVisualStyleBackColor = true;
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
+            // 
+            // pauseButton
+            // 
+            this.pauseButton.Location = new System.Drawing.Point(425, 391);
+            this.pauseButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pauseButton.Name = "pauseButton";
+            this.pauseButton.Size = new System.Drawing.Size(100, 100);
+            this.pauseButton.TabIndex = 10;
+            this.pauseButton.Text = "Pause";
+            this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // TetrisView
             // 

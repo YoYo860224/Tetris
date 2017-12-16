@@ -36,6 +36,7 @@ namespace Tetris
             this.levelLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.levelLabel.Location = new System.Drawing.Point(238, 52);
             this.levelLabel.Size = new System.Drawing.Size(200, 40);
+            this.levelLabel.Text = "Level : 1";
             // 
             // scoreLabel
             // 
@@ -44,6 +45,7 @@ namespace Tetris
             this.scoreLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.scoreLabel.Location = new System.Drawing.Point(307, 354);
             this.scoreLabel.Size = new System.Drawing.Size(224, 73);
+            this.scoreLabel.Text = "Score : 0";
             // 
             // timeLabel
             // 
@@ -52,6 +54,22 @@ namespace Tetris
             this.timeLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.timeLabel.Location = new System.Drawing.Point(218, 172);
             this.timeLabel.Size = new System.Drawing.Size(313, 82);
+            this.timeLabel.Text = "Time : 0";
+            // 
+            // stopButton
+            // 
+            this.stopButton.Location = new System.Drawing.Point(162, 418);
+            this.stopButton.Size = new System.Drawing.Size(50, 20);
+            // 
+            // pauseButton
+            // 
+            this.pauseButton.Location = new System.Drawing.Point(86, 418);
+            this.pauseButton.Size = new System.Drawing.Size(50, 20);
+            // 
+            // startButton
+            // 
+            this.startButton.Location = new System.Drawing.Point(12, 418);
+            this.startButton.Size = new System.Drawing.Size(50, 20);
             // 
             // blockPanel
             // 
@@ -61,27 +79,13 @@ namespace Tetris
             // 
             this.nextPanel.Location = new System.Drawing.Point(450, 12);
             // 
-            // startButton
-            // 
-            this.startButton.Location = new System.Drawing.Point(12, 418);
-            this.startButton.Size = new System.Drawing.Size(50, 20);
-            // 
-            // pauseButton
-            // 
-            this.pauseButton.Location = new System.Drawing.Point(86, 418);
-            this.pauseButton.Size = new System.Drawing.Size(50, 20);
-            // 
-            // stopButton
-            // 
-            this.stopButton.Location = new System.Drawing.Point(162, 418);
-            this.stopButton.Size = new System.Drawing.Size(50, 20);
-            // 
             // TetrisView_B10415049
             // 
             this.BackColor = System.Drawing.SystemColors.ControlText;
             this.ClientSize = new System.Drawing.Size(546, 449);
             this.Name = "TetrisView_B10415049";
             this.ResumeLayout(false);
+
         }
     }
 }
