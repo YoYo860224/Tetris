@@ -115,7 +115,6 @@ namespace Tetris
             timer = 0;
             score = 0;
             level = 1;
-            tetrisView.TimerIntervalSet(1000);
             timerInterval = 1000;
             resetflag = 0;
         }
@@ -176,70 +175,33 @@ namespace Tetris
 
         public void GameStart()
         {
-            if (resetflag == 1)
-            {
-                for (int col = 0; col < blocky; col++)
-                {
-                    for (int row = 0; row < blockx; row++)
-                    {
-                        block[row, col].cube = CUBE.NONE;
-                    }
-                }
-                for (int col = 0; col < nextBlocky; col++)
-                {
-                    for (int row = 0; row < nextBlockx; row++)
-                    {
-                        nextBlock[row, col].cube = CUBE.NONE;
-                    }
-                }
-            }
-            resetflag = 0;
-            if (nowState == STATE.STOP)//初始畫面
+            if (nowState == STATE.STOP)
             {
                 InitAll();
+                nowStep = 0;
                 CubeCreate();
-                NextCreate();
+                timerInterval = 1000;
+                tetrisView.TimerIntervalSet((int)timerInterval);
             }
-            SetState(STATE.DOING);
+            nowState = STATE.DOING;
             tetrisView.ViewUpdate();
+            tetrisView.ButtonActive(false, true, true);
         }
 
         public void GamePause()
         {
-            if (nowState == STATE.STOP) ;
-            else
-                SetState(STATE.PAUSE);
-
-            tetrisView.ViewUpdate();
+            nowState = STATE.PAUSE;
+            tetrisView.ButtonActive(true, false, true);
         }
 
         public void GameOver()
         {
-            SetTimer(0);
-            SetScore(0);
-            SetLevel(1);
-            SetState(STATE.STOP);
-            for (int col = 0; col < blocky; col++)
-            {
-                for (int row = 0; row < blockx; row++)
-                {
-                    block[row, col].cube = CUBE.S_RE;
-                }
-            }
-            for (int col = 0; col < nextBlocky; col++)
-            {
-                for (int row = 0; row < nextBlockx; row++)
-                {
-                    nextBlock[row, col].cube = CUBE.S_RE;
-                    nextBlock[row, col].cube_state = CUBE_STATE.OK;
-                }
-            }
-            resetflag = 1;
-            tetrisView.TimerIntervalSet(1000);
-            tetrisView.ViewUpdate();
+            nowState = STATE.STOP;
+            tetrisView.TimerIntervalSet(30);
+            tetrisView.ButtonActive(true, false, false);
         }
 
-        
+
         public void CubeAutoDown()
         {
             //if cube hit bottom we need to scan the block for delete row and then create new cube and next cube
@@ -339,6 +301,8 @@ namespace Tetris
         // 掃描需要消除的ROW
         public void BlockScan()
         {
+            CubeIsChanged = false;
+
             int count = 0;
             for (int i = 0; i < blockx; i++)
             {
@@ -815,6 +779,63 @@ namespace Tetris
             }
             tetrisView.ViewUpdate();
         }
-        //////////////////////////////////////////////////
+        ///////////////// Show something /////////////////
+
+        private int nowStep = 0;
+
+        public void GameOverPanel()
+        {
+            int[,] over_text = new int[,]{
+                { 19, 3 },{ 19, 4 },{ 19, 5 },{ 19, 6 },
+                { 18, 3 },                    { 18, 6 },
+                { 17, 3 },                    { 17, 6 },
+                { 16, 3 },{ 16, 4 },{ 16, 5 },{ 16, 6 },
+
+                { 14, 3 },                    { 14, 6 },
+                { 13, 3 },                    { 13, 6 },
+                { 12, 3 },                    { 12, 6 },
+                          { 11, 4 },{ 11, 5 },
+
+                { 9, 3 }, {  9, 4 },{  9, 5 },{  9, 6 },
+                { 8, 3 },
+                { 7, 3 }, {  7, 4 },{  7, 5 },
+                { 6, 3 },
+                { 5, 3 }, {  5, 4 },{  5, 5 },{  5, 6 },
+
+                { 4, 3 }, {  4, 4 },{  4, 5 },{  4, 6 },
+                { 3, 3 },                     {  3, 6 },
+                { 2, 3 }, {  2, 4 },{  2, 5 },{  2, 6 },
+                { 1, 3 },           {  1, 5 },
+                { 0, 3 },                     {  0, 6 },
+            };
+
+            int x = nowStep / 10;
+            int y = nowStep % 10;
+
+            block[x, y].cube = CUBE.SQUARE;
+            block[x, y].cube_state = CUBE_STATE.OK;
+
+            for (int i = 0; i < over_text.Length / 2; i++)
+            {
+                if (over_text[i, 0] == x && over_text[i, 1] == y)
+                {
+                    if (x > 15)
+                        block[x, y].cube = CUBE.T;
+                    else if (x > 10)
+                        block[x, y].cube = CUBE.S;
+                    else if (x > 4)
+                        block[x, y].cube = CUBE.L;
+                    else
+                        block[x, y].cube = CUBE.I;
+                }
+            }
+
+            nowStep++;
+
+            if (nowStep > 200)
+                nowStep = 0;
+
+            tetrisView.ViewUpdate();
+        }
     }
 }

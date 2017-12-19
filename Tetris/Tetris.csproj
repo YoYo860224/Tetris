@@ -58,6 +58,9 @@
     <Compile Include="TetrisView.Designer.cs">
       <DependentUpon>TetrisView.cs</DependentUpon>
     </Compile>
+    <Compile Include="TetrisView_B10415022.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TetrisView_B10415030.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +78,9 @@
     </Compile>
     <EmbeddedResource Include="TetrisView.resx">
       <DependentUpon>TetrisView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TetrisView_B10415022.resx">
+      <DependentUpon>TetrisView_B10415022.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TetrisView_B10415030.resx">
       <DependentUpon>TetrisView_B10415030.cs</DependentUpon>

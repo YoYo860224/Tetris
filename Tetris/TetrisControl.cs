@@ -63,6 +63,13 @@ namespace Tetris
                     tetrisModel.CubeChangeNext();
                 }
             }
+            else if (tetrisModel.GetState() == TetrisModel.STATE.STOP)
+            {
+                if (c == Keys.Space)
+                {
+                    tetrisModel.GameOverPanel();
+                }
+            }
         }
 
         public void UserButton(BUTTON b)
@@ -86,6 +93,10 @@ namespace Tetris
             if (tetrisModel.GetState().Equals(TetrisModel.STATE.DOING))
             {
                 tetrisModel.CubeAutoDown();
+            }
+            else if (tetrisModel.GetState() == TetrisModel.STATE.STOP)
+            {
+                tetrisModel.GameOverPanel();
             }
         }
 
