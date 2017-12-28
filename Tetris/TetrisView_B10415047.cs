@@ -12,14 +12,15 @@ namespace Tetris
         override public void SkinChange()
         {
             ccMap = new Dictionary<TetrisModel.CUBE, Color>();
+            
+            ccMap.Add(TetrisModel.CUBE.L_RE, Color.FromArgb(120, 120, 120));
+            ccMap.Add(TetrisModel.CUBE.S, Color.FromArgb(140, 140, 140));
+            ccMap.Add(TetrisModel.CUBE.S_RE, Color.FromArgb(160, 160, 160));
             ccMap.Add(TetrisModel.CUBE.NONE, Color.FromArgb(240, 240, 240));
             ccMap.Add(TetrisModel.CUBE.T, Color.FromArgb(30, 30, 30));
             ccMap.Add(TetrisModel.CUBE.I, Color.FromArgb(60, 60, 60));
             ccMap.Add(TetrisModel.CUBE.SQUARE, Color.FromArgb(80, 80, 80));
             ccMap.Add(TetrisModel.CUBE.L, Color.FromArgb(100, 100, 100));
-            ccMap.Add(TetrisModel.CUBE.L_RE, Color.FromArgb(120, 120, 120));
-            ccMap.Add(TetrisModel.CUBE.S, Color.FromArgb(140, 140, 140));
-            ccMap.Add(TetrisModel.CUBE.S_RE, Color.FromArgb(160, 160, 160));
             InitializeComponent();
             return;
         }
