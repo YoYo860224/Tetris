@@ -17,8 +17,8 @@ namespace Tetris
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             // Application.Run(new TetrisView_B10415022());
-             Application.Run(new TetrisView_B10415030());
-            // Application.Run(new TetrisView_B10415046());
+            // Application.Run(new TetrisView_B10415030());
+             Application.Run(new TetrisView_B10415046());
             // Application.Run(new TetrisView_B10415047());
             // Application.Run(new TetrisView_B10415049());
         }
