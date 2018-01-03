@@ -13,14 +13,14 @@ namespace Tetris
         {
             ccMap = new Dictionary<TetrisModel.CUBE, Color>();
             
-            ccMap.Add(TetrisModel.CUBE.L_RE, Color.FromArgb(120, 120, 120));
-            ccMap.Add(TetrisModel.CUBE.S, Color.FromArgb(140, 140, 140));
-            ccMap.Add(TetrisModel.CUBE.S_RE, Color.FromArgb(160, 160, 160));
-            ccMap.Add(TetrisModel.CUBE.NONE, Color.FromArgb(240, 240, 240));
-            ccMap.Add(TetrisModel.CUBE.T, Color.FromArgb(30, 30, 30));
-            ccMap.Add(TetrisModel.CUBE.I, Color.FromArgb(60, 60, 60));
-            ccMap.Add(TetrisModel.CUBE.SQUARE, Color.FromArgb(80, 80, 80));
-            ccMap.Add(TetrisModel.CUBE.L, Color.FromArgb(100, 100, 100));
+            ccMap.Add(TetrisModel.CUBE.L_RE, Color.Aqua);
+            ccMap.Add(TetrisModel.CUBE.S, Color.Crimson);
+            ccMap.Add(TetrisModel.CUBE.S_RE, Color.FloralWhite);
+            ccMap.Add(TetrisModel.CUBE.NONE, Color.Firebrick);
+            ccMap.Add(TetrisModel.CUBE.T, Color.Azure);
+            ccMap.Add(TetrisModel.CUBE.I, Color.RosyBrown);
+            ccMap.Add(TetrisModel.CUBE.SQUARE, Color.RoyalBlue);
+            ccMap.Add(TetrisModel.CUBE.L, Color.GreenYellow);
             InitializeComponent();
             return;
         }
